@@ -1,7 +1,8 @@
 // src/layouts/Layout.tsx
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import NavBar from '../../ps_vis_react/src/components/Navbar';
+import NavBar from './components/Navbar'; 
+
 import {
   Home,
   PlusCircle,

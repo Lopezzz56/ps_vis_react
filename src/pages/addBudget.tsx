@@ -1,5 +1,5 @@
 // --- src/pages/AddBudgetPage.tsx ---
-import BudgetForm from '../../src/components/addBudgetForm';
+import BudgetForm from '../components/addBudgetForm';
 
 export default function AddBudgetPage() {
   return (

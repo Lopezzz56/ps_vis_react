@@ -6,9 +6,6 @@ import {
   Home,
   PlusCircle,
   BarChart3,
-  PiggyBank,
-  CreditCard,
-  User,
   Menu,
   X,
 } from 'lucide-react';

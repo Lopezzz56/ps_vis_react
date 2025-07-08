@@ -1,12 +1,10 @@
 // src/components/NavBar.tsx
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Home,
   PlusCircle,
   BarChart3,
-  PiggyBank,
-  CreditCard,
+
 } from 'lucide-react';
 
 const NavBar = () => {

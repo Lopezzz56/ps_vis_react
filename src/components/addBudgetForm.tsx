@@ -20,9 +20,8 @@ export default function AddBudgetForm({ onSubmitSuccess }: Props) {
   const {
     register,
     handleSubmit,
-    reset,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<BudgetType>({ defaultValues: {} });
 
   useEffect(() => {

@@ -7,10 +7,32 @@ import { format } from 'date-fns';
 import MonthlyExpensesChart from '../components/charts/MonthlyExpensesChart';
 import CategoryPieChart from '../components/charts/CategoryPieChart';
 import BudgetVsActualChart from '../components/charts/BudgetVsActualChart';
+import { InsightCard } from '../components/ui/Card';
+
+type InsightData = {
+  percentChange: string | null;
+  topCategory: [string, number] | null;
+  mostExceeded?: {
+    category: string;
+    difference: number;
+  };
+  mostApproaching?: {
+    category: string;
+    percentageUsed: string;
+  };
+};
 
 export default function DashboardPage() {
   const [transactions, setTransactions] = useState<TransactionType[]>([]);
 const [budgets, setBudgets] = useState<{ category: string; limit: number }[]>([]);
+  const [insights, setInsights] = useState<InsightData | null>(null);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/insights') // adjust for Vercel API route if needed
+      .then((res) => res.json())
+      .then(setInsights)
+      .catch(() => console.error('Failed to fetch insights'));
+  }, []);
 
 useEffect(() => {
   const fetchData = async () => {
@@ -137,6 +159,60 @@ const budgetVsActualArr = budgets.map((b) => ({
         <BudgetVsActualChart data={budgetVsActualArr} />
       </div>
     </div>
+     <h2 className="text-xl font-bold text-[#093FB4]">Insights</h2>
+
+      {insights && (
+<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 pb-8">
+          <InsightCard
+            title="Monthly Spending"
+            message="Your spending"
+            highlight={
+              insights.percentChange
+                ? `${insights.percentChange}% ${parseFloat(insights.percentChange) >= 0 ? '↑' : '↓'} compared to last month`
+                : 'No data for previous month'
+            }
+            color="blue"
+          />
+          <InsightCard
+            title="Top Category"
+            message="Most spent on"
+            highlight={
+              insights.topCategory
+                ? `${insights.topCategory[0]} (${insights.topCategory[1]} ₹)`
+                : 'No data'
+            }
+            color="green"
+          />
+          <InsightCard
+            title="Budget Status"
+            message={
+              insights.mostExceeded
+                ? `Exceeded your ${insights.mostExceeded.category} budget by`
+                : 'No overspending'
+            }
+            highlight={
+              insights.mostExceeded
+                ? `₹${insights.mostExceeded.difference}`
+                : ''
+            }
+            color="red"
+          />
+          <InsightCard
+            title="Overspending Alert"
+            message={
+              insights.mostApproaching
+                ? `${insights.mostApproaching.category} is`
+                : 'No alert'
+            }
+            highlight={
+              insights.mostApproaching
+                ? `${insights.mostApproaching.percentageUsed}% used`
+                : ''
+            }
+            color="orange"
+          />
+        </div>
+      )}
     </div>
   );
 }

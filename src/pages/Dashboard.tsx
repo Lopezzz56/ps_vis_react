@@ -98,8 +98,8 @@ const budgetVsActualArr = budgets.map((b) => ({
 }));
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 space-y-10">
-<h1 className="text-3xl px-4 py-3 sm:px-8 sm:py-6 md:px-8 md:py-6 font-bold text-[#093FB4]">
+    <div className="max-w-6xl mx-auto mt-10 px-4 py-3 sm:px-8 sm:py-6 md:px-8 md:py-6 space-y-10">
+<h1 className="text-3xl  font-bold text-[#093FB4]">
   Dashboard
 </h1>
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
@@ -162,7 +162,7 @@ const budgetVsActualArr = budgets.map((b) => ({
      <h2 className="text-xl font-bold text-[#093FB4]">Insights</h2>
 
       {insights && (
-<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 pb-8">
+<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8 pb-8 sm:pb-18 sm:mb-8">
           <InsightCard
             title="Monthly Spending"
             message="Your spending"
